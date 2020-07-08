@@ -1,8 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { getFilms } from './Api';
 
 function App() {
+
+  getFilms().then((data) => { console.log(data) });
+
   return (
     <div className="App">
       <header className="App-header">
