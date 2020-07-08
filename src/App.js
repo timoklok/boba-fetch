@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { getFilms, getHomeworlds, getSpecies } from './Api';
+import OptionSelect from './components/OptionSelect';
 
 function App() {
 
@@ -32,24 +33,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        
-        <select name="planet" value={''} onChange={ console.log('planet selected')}>
-          {planets.map((planet) => {
-            return <option key={planet.id} value={planet.id}>{planet.name}</option>;
-          })}
-        </select>
+        <h1>Boba Fetch</h1>
 
-        <select name="species" value={''} onChange={console.log('species selected')}>
-          {species.map((species) => {
-            return <option key={species.id} value={species.id}>{species.name}</option>;
-          })}
-        </select>
-
-        <select name="film" value={''} onChange={console.log('film selected')}>
-          {films.map((film) => {
-            return <option key={film.episodeId} value={film.episodeId}>{film.title}</option>;
-          })}
-        </select>
+        <OptionSelect listName='planets' list={planets} />
+        <OptionSelect listName='species' list={species} />
+        <OptionSelect listName='films' list={films} />
 
       </header>
     </div>
