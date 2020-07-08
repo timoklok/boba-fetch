@@ -2,6 +2,9 @@ import axios from "axios";
 
 const API_URL = 'https://swapi.graph.cool/';
 
+// @todo: add error handling
+// @todo: add tests
+
 /**
  * @description Function that retrieves characters that matches all three params provided
  * @param {*} episodeId
@@ -93,8 +96,10 @@ export const getHomeworlds = () => {
  * @param {object} variables
  * @returns Promise
  */
-const runQuery = async (query, variables = {}) => {
+export const runQuery = async (query, variables = {}) => {
 
+	if (!query) { throw new Error('Network Error'); }
+	
 	return await axios.post(API_URL, {
 		query: query,
 		variables: variables

@@ -5,6 +5,7 @@ import { getFilms } from './Api';
 
 function App() {
 
+  // demo call
   getFilms().then((data) => { console.log(data) });
 
   return (
