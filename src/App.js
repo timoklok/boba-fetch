@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { getFilms, getHomeworlds, getSpecies } from './Api';
 import OptionSelect from './components/OptionSelect';
+import Results from './components/Results';
 
 function App() {
 
@@ -38,6 +39,8 @@ function App() {
         <OptionSelect listName='planets' list={planets} />
         <OptionSelect listName='species' list={species} />
         <OptionSelect listName='films' list={films} />
+
+        <Results />
 
       </header>
     </div>
