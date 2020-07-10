@@ -23,9 +23,15 @@ export const getCharacters = async function (searchParameters) {
 				name
 				homeworld {
 					name
+					id
 				}
 				species {
 					name
+					id
+				}
+				films {
+					title
+					episodeId
 				}
 			}
 		}`;
