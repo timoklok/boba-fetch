@@ -9,10 +9,10 @@ import { getCharacters } from '../Api';
 const Results = () => {
 
 	const searchParameters = useContext(SearchContext)[0];
-	
+	const [characters, setCharacters] = useState([]);
 	useEffect(() => {
 		getCharacters(searchParameters).then((results) => {
-			console.log(results);
+			setCharacters(results.data.data.allPersons);
 		})
 	}, [searchParameters]);
 	
@@ -20,6 +20,11 @@ const Results = () => {
 
 		<div className='searchResults'>
 			<h2> Results</h2>
+
+			{characters.map( (char) => {
+				return <p key={char.id}>{char.name}</p>
+			})
+			}
 		</div>
 	)
 	
