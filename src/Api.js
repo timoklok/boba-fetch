@@ -7,18 +7,16 @@ const API_URL = 'https://swapi.graph.cool/';
 
 /**
  * @description Function that retrieves characters that matches all three params provided
- * @param {*} episodeId
- * @param {*} homeworld
- * @param {*} species
+ * @param object searchParameters
  * @returns Promise
  */
 export const getCharacters = async function (searchParameters) {
-	const query = `query findCharacters ($homeworld: String, $species: String, $episodeId: Int) {
+	const query = `query findCharacters ($homeworld: ID, $species: ID, $episodeId: Int) {
 		allPersons(
 			orderBy: name_ASC,
 			filter: {
-				homeworld: { name: $homeworld },
-				species_some: { name: $species },
+				homeworld: { id: $homeworld },
+				species_some: { id: $species },
 				films_some: { episodeId: $episodeId  }
 			}) {
 				id
