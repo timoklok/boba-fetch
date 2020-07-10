@@ -12,9 +12,8 @@ const API_URL = 'https://swapi.graph.cool/';
  * @param {*} species
  * @returns Promise
  */
-export const getCharacters = async function (episodeId, homeworld, species) {
-
-	const query = `query findCharacters ($homeworld: String!, $species: String!, $episodeId: Int!) {
+export const getCharacters = async function (searchParameters) {
+	const query = `query findCharacters ($homeworld: String, $species: String, $episodeId: Int) {
 		allPersons(
 			orderBy: name_ASC,
 			filter: {
@@ -33,13 +32,7 @@ export const getCharacters = async function (episodeId, homeworld, species) {
 			}
 		}`;
 
-	const variables = {
-		episodeId: episodeId,
-		homeworld: homeworld,
-		species: species
-	};
-
-	return runQuery(query, variables);
+	return runQuery(query, searchParameters);
 
 }
 

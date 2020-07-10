@@ -29,7 +29,11 @@ function App() {
   }, []);
   //
   
-  const searchParamaters = useState({});
+  const searchParamaters = useState({
+    episodeId: undefined,
+    homeworld: undefined,
+    species: undefined
+  });
 
   return (
     <div className="App">
@@ -38,9 +42,9 @@ function App() {
         <h1>Boba Fetch</h1>
 
         <SearchContextProvider value={ searchParamaters }>
-          <OptionSelect listName='planets' list={planets} />
+          <OptionSelect listName='homeworld' list={planets} />
           <OptionSelect listName='species' list={species} />
-          <OptionSelect listName='films' list={films} />
+          <OptionSelect listName='episodeId' list={films} />
           <Results />
         </SearchContextProvider>
       </header>

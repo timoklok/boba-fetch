@@ -1,5 +1,6 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import SearchContext from '../context/SearchContext';
+import { getCharacters } from '../Api';
 
 
 /**
@@ -8,9 +9,11 @@ import SearchContext from '../context/SearchContext';
 const Results = () => {
 
 	const searchParameters = useContext(SearchContext)[0];
-
+	
 	useEffect(() => {
-		console.log(searchParameters);
+		getCharacters(searchParameters).then((results) => {
+			console.log(results);
+		})
 	}, [searchParameters]);
 	
 	return (

@@ -8,7 +8,7 @@ import SearchContext from '../context/SearchContext';
 const OptionSelect = ({ list, listName }) => {
 
 	// @Todo: this is too specific  
-	if (listName === 'films') {
+	if (listName === 'episodeId') {
 		list = list.map((item) => {
 			return { ...item, 'id': item.episodeId, 'name': item.title }
 		});
@@ -18,7 +18,7 @@ const OptionSelect = ({ list, listName }) => {
 
 	const handleChange = (event) => {
 		const { value } = event.target;
-		setSearchContextParameters({ ...searchContextParameters, [listName]: value });
+		setSearchContextParameters({ ...searchContextParameters, [listName]: (listName === 'episodeId') ? parseInt(value) : value });
 	}
 
 	return (<select name={listName} onChange={handleChange}>
