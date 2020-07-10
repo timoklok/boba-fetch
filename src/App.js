@@ -4,6 +4,7 @@ import './App.css';
 import { getFilms, getHomeworlds, getSpecies } from './Api';
 import OptionSelect from './components/OptionSelect';
 import Results from './components/Results';
+import { SearchContextProvider } from './context/SearchContext';
 
 function App() {
 
@@ -36,12 +37,12 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Boba Fetch</h1>
 
-        <OptionSelect listName='planets' list={planets} />
-        <OptionSelect listName='species' list={species} />
-        <OptionSelect listName='films' list={films} />
-
-        <Results />
-
+        <SearchContextProvider value={"testValue"}>
+          <OptionSelect listName='planets' list={planets} />
+          <OptionSelect listName='species' list={species} />
+          <OptionSelect listName='films' list={films} />
+          <Results />
+        </SearchContextProvider>
       </header>
     </div>
   );
