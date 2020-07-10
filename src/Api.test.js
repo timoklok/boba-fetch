@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-import { runQuery, getHomeworlds } from './Api';
+import { runQuery, getFilms } from './Api';
 
 jest.mock('axios');
 
-describe('getHomeworlds', () => {
+describe('getFilms', () => {
 	it('fetches successfully data from an API', async () => {
 		const data = {
 			data: {
@@ -27,7 +27,7 @@ describe('getHomeworlds', () => {
 		  }
 		}`;
 		axios.post.mockImplementationOnce(() => Promise.resolve(data));
-		await expect(getHomeworlds(query)).resolves.toEqual(data);
+		await expect(getFilms(query)).resolves.toEqual(data);
 
 	});
 
