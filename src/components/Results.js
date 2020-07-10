@@ -8,14 +8,20 @@ import { getCharacters } from '../Api';
  */
 const Results = () => {
 
-	const searchParameters = useContext(SearchContext)[0];
+	const [searchContextItems, setSearchContextItems] = useContext(SearchContext);
 	const [characters, setCharacters] = useState([]);
+
 	useEffect(() => {
-		getCharacters(searchParameters).then((results) => {
+		getCharacters(searchContextItems.searchParameters).then((results) => {
 			setCharacters(results.data.data.allPersons);
+			setSearchResult(results);
 		})
-	}, [searchParameters]);
+	}, [searchContextItems.searchParameters]);
 	
+	const setSearchResult = (results) => {
+		setSearchContextItems({ ...searchContextItems, searchResult: results.data.data.allPersons });
+	}
+
 	return (
 
 		<div className='searchResults'>

@@ -27,13 +27,15 @@ function App() {
       setSpecies(results.data.data.allSpecies);
     })
   }, []);
-  //
   
-  const searchParamaters = useState({
-    episodeId: undefined,
-    homeworld: undefined,
-    species: undefined
+  const searchContextItems = useState({
+    searchParameters: {
+      episodeId: undefined,
+      homeworld: undefined,
+      species: undefined
+    }
   });
+
 
   return (
     <div className="App">
@@ -41,7 +43,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Boba Fetch</h1>
 
-        <SearchContextProvider value={ searchParamaters }>
+        <SearchContextProvider value={ searchContextItems }>
           <OptionSelect listName='homeworld' list={planets} />
           <OptionSelect listName='species' list={species} />
           <OptionSelect listName='episodeId' list={films} />

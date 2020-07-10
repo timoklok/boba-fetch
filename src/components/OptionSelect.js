@@ -1,4 +1,4 @@
-import React , { useContext } from "react";
+import React , { useContext, useEffect, useState } from "react";
 import SearchContext from '../context/SearchContext';
 
 /**
@@ -14,16 +14,63 @@ const OptionSelect = ({ list, listName }) => {
 		});
 	}
 	
-	const [ searchContextParameters, setSearchContextParameters] = useContext(SearchContext);
+	const [searchContextItems, setSearchContextItems] = useContext(SearchContext);
+	const [options, setOptions] = useState(list);
 
 	const handleChange = (event) => {
-		const { value } = event.target;
-		setSearchContextParameters({ ...searchContextParameters, [listName]: (listName === 'episodeId') ? parseInt(value) : value });
+		let { value } = event.target;
+		if (value === '') value = undefined;
+		const searchParameters = { ...searchContextItems['searchParameters'], [listName]: (listName === 'episodeId') ? parseInt(value) : value };
+		setSearchContextItems({ ...searchContextItems, searchParameters: searchParameters});
 	}
 
+	const updateOptions = (currentResult) => {
+		const updatedList = list.map((item) => {
+			let hidden = true;
+
+			// only show an option if it is present in the current search result
+			for (let i = 0; i < currentResult.length; i++) {
+				const character = currentResult[i];
+
+				if (listName === 'episodeId') {
+					let isPresent = (character['films'].some(e => e.episodeId === item.id));
+					if (isPresent) {
+						hidden = false;
+						break;
+					}
+				} else if (listName === 'species') {
+					let isPresent = (character['species'].some(e => e.id === item.id));
+					if (isPresent) {
+						hidden = false;
+						break;
+					}
+				} else {
+					if (character.homeworld.id === item.id) {
+						hidden = false;
+						break;
+					}
+				}
+
+			}
+
+			return { ...item, 'hidden': hidden };
+		});
+
+		setOptions(updatedList);
+	}
+
+	useEffect(() => {
+		const currentResult = searchContextItems.searchResult;
+		updateOptions(currentResult);
+	}, [searchContextItems.searchResult]);
+
 	return (<select name={listName} onChange={handleChange}>
-		{list.map((item) => {
-			return <option key={item.id} value={item.id}>{item.name}</option>;
+		<option value=''>CLEAR</option>;
+		{options.map((item) => {
+			if (!item.hidden) {
+				return <option key={item.id} value={item.id}>{item.name}</option>;
+			}
+			return undefined;
 		})}
 	</select> )
 
