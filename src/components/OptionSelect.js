@@ -1,4 +1,5 @@
-import React , { useState, useEffect } from "react";
+import React , { useContext } from "react";
+import SearchContext from '../context/SearchContext';
 
 /**
  * @description Functional component that renders select element and updates global context when value changes
@@ -13,16 +14,11 @@ const OptionSelect = ({ list, listName }) => {
 		});
 	}
 	
-	const [ selection, setSelection ] = useState({});
-	
-	// @todo: update global context selection object and fetch new data
-	useEffect(() => {
-		console.log(selection);
-	}, [selection]);
+	const [ searchContextParameters, setSearchContextParameters] = useContext(SearchContext);
 
 	const handleChange = (event) => {
 		const { value } = event.target;
-		setSelection( () => { return{...selection, [listName]: value }});
+		setSearchContextParameters({ ...searchContextParameters, [listName]: value });
 	}
 
 	return (<select name={listName} onChange={handleChange}>

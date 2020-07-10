@@ -29,7 +29,7 @@ function App() {
   }, []);
   //
   
-
+  const searchParamaters = useState({});
 
   return (
     <div className="App">
@@ -37,7 +37,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Boba Fetch</h1>
 
-        <SearchContextProvider value={"testValue"}>
+        <SearchContextProvider value={ searchParamaters }>
           <OptionSelect listName='planets' list={planets} />
           <OptionSelect listName='species' list={species} />
           <OptionSelect listName='films' list={films} />

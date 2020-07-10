@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import SearchContext from '../context/SearchContext';
 
 
@@ -7,13 +7,16 @@ import SearchContext from '../context/SearchContext';
  */
 const Results = () => {
 
-	const searchParameters = useContext(SearchContext);
+	const searchParameters = useContext(SearchContext)[0];
 
+	useEffect(() => {
+		console.log(searchParameters);
+	}, [searchParameters]);
+	
 	return (
 
 		<div className='searchResults'>
 			<h2> Results</h2>
-			<span>{searchParameters}</span>
 		</div>
 	)
 	

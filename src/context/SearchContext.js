@@ -1,6 +1,9 @@
 import React from 'react';
 
-const SearchContext = React.createContext({});
+const SearchContext = React.createContext([
+	{},
+	() => {},
+]);
 
 export const SearchContextProvider = SearchContext.Provider;
 
