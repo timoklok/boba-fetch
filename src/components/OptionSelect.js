@@ -1,5 +1,7 @@
 import React , { useContext, useEffect, useState } from "react";
 import SearchContext from '../context/SearchContext';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 /**
  * @description Functional component that renders select element and updates global context when value changes
@@ -17,9 +19,9 @@ const OptionSelect = ({ list, listName }) => {
 	const [searchContextItems, setSearchContextItems] = useContext(SearchContext);
 	const [options, setOptions] = useState(list);
 
-	const handleChange = (event) => {
-		let { value } = event.target;
-		if (value === '') value = undefined;
+	const handleChange = (value) => {
+		console.log(value);
+		if (!value) value = undefined;
 		const searchParameters = { ...searchContextItems['searchParameters'], [listName]: (listName === 'episodeId') ? parseInt(value) : value };
 		setSearchContextItems({ ...searchContextItems, searchParameters: searchParameters});
 	}
@@ -64,15 +66,16 @@ const OptionSelect = ({ list, listName }) => {
 		updateOptions(currentResult);
 	}, [searchContextItems.searchResult]);
 
-	return (<select name={listName} onChange={handleChange}>
-		<option value=''>CLEAR</option>;
+	return (<DropdownButton id="dropdown-basic-button" title={"Select"} onSelect={handleChange}>
+		{/* only show empy selection there's a selection */}
+		<Dropdown.Item eventKey=''>----</Dropdown.Item>
 		{options.map((item) => {
-			if (!item.hidden) {
-				return <option key={item.id} value={item.id}>{item.name}</option>;
+			if ( !item.hidden ) {
+				return <Dropdown.Item key={item.id} eventKey={item.id}>{item.name}</Dropdown.Item>;
 			}
 			return undefined;
 		})}
-	</select> )
+	</DropdownButton> );
 
 }
 
