@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './styles/App.scss';
 import { getFilms, getHomeworlds, getSpecies } from './Api';
 import OptionSelect from './components/OptionSelect';
 import Results from './components/Results';
