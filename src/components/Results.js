@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import SearchContext from '../context/SearchContext';
 import { getCharacters } from '../Api';
+import Character from './Character';
 
 
 /**
@@ -27,10 +28,10 @@ const Results = () => {
 		<div className='searchResults'>
 			<h2> Results</h2>
 
-			{characters.map( (char) => {
-				return <p key={char.id}>{char.name}</p>
-			})
-			}
+				{characters.map( (char) => {
+					return <Character key={char.id} character={char} />
+				})
+				}
 		</div>
 	)
 	
