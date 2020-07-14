@@ -3,7 +3,7 @@ import '../styles/Character.scss';
 
 /**
  * @description Renders the character details
- * @param object props
+ * @param object character
  */
 const Character = ({ character }) => {
 	
@@ -16,12 +16,11 @@ const Character = ({ character }) => {
 	}
 	
 	return (
-
 		<div className='character'>
-			<h4>{character.name}</h4>
-			<p>Homeworld: {character.homeworld.name}</p>
-			<p>Species: { renderSpecies() }</p>
-			<p>Appears in: { renderFilms() }</p >
+			<h4 className='character__name'>{character.name}</h4>
+			<p><span className='character__detail'>Homeworld:</span> {character.homeworld.name}</p>
+			<p><span className='character__detail'>Species:</span> { renderSpecies() }</p>
+			<p><span className='character__detail'>Appears in:</span> { renderFilms() }</p >
 		</div>
 	)
 } 

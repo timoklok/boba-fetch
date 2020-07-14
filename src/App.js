@@ -39,13 +39,18 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Boba Fetch</h1>
+        <h1 className='title'>Boba Fetch</h1>
+        <p className='description'>
+          A Star Wars character locator
+        </p>
       </header>
       <main className='app-main'>
         <SearchContextProvider value={searchContextItems}>
-          <OptionSelect listName='homeworld' list={planets} />
-          <OptionSelect listName='species' list={species} />
-          <OptionSelect listName='episodeId' list={films} />
+          <div className='filter-options'>		
+            <OptionSelect listName='homeworld' list={planets} />
+            <OptionSelect listName='species' list={species} />
+            <OptionSelect listName='episodeId' list={films} />
+          </div>
           <Results />
         </SearchContextProvider>
       </main>

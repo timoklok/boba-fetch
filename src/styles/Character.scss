@@ -2,4 +2,13 @@
 	border: 2px solid white;
 	border-radius: 2px;
 	padding: 1rem;
+	background: rgba(255,255,255,0.1);
+}
+
+.character__name {
+	font-weight: bold;
+}
+
+.character__detail {
+	font-weight: 200;
 }

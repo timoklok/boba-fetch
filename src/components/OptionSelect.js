@@ -85,7 +85,7 @@ const OptionSelect = ({ list, listName }) => {
 			return false;
 		}
 		return (
-			<DropdownButton id="dropdown-basic-button" title={(currentSelection) ? currentSelection : 'select'} onSelect={handleChange}>
+			<DropdownButton variant="outline-warning" id="dropdown-basic-button" title={(currentSelection) ? currentSelection : 'select '+ listName } onSelect={handleChange}>
 				{options.map((item) => {
 					if (!item.hidden) {
 						return <Dropdown.Item key={item.id} eventKey={item.id}>{item.name}</Dropdown.Item>;
@@ -102,16 +102,15 @@ const OptionSelect = ({ list, listName }) => {
 		}
 		return (
 			<p>{currentSelection}
-				<Button onClick={clearSelection} variant="primary">clear</Button>
+				<button className='filter-option__clear' onClick={clearSelection}>x</button>
 			</p>
 		);
 	}
 
 	return (
-		<div>		
+		<div className='filter-option'>		
 			{renderSelection()}
-			{renderDropdown()}
-			
+			{renderDropdown()}	
 		</div>
 	);
 
