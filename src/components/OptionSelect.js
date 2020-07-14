@@ -2,7 +2,6 @@ import React , { useContext, useEffect, useState } from "react";
 import SearchContext from '../context/SearchContext';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Button from 'react-bootstrap/Button';
 import '../styles/OptionSelect.scss';
 
 /**
@@ -21,6 +20,13 @@ const OptionSelect = ({ list, listName }) => {
 	const [searchContextItems, setSearchContextItems] = useContext(SearchContext);
 	const [options, setOptions] = useState(list);
 	const [currentSelection, setCurrentSlection] = useState("");
+	const [isLoading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (isLoading && list.length) {
+			setLoading(false);
+		}
+	}, [list]);
 
 	const clearSelection = () => {
 		setCurrentSlection(undefined);
@@ -85,7 +91,7 @@ const OptionSelect = ({ list, listName }) => {
 			return false;
 		}
 		return (
-			<DropdownButton variant="outline-warning" id="dropdown-basic-button" title={(currentSelection) ? currentSelection : 'select '+ listName } onSelect={handleChange}>
+			<DropdownButton variant="outline-warning" id="dropdown-basic-button" title={(isLoading) ? 'loading...' : 'select '+ listName } onSelect={handleChange}>
 				{options.map((item) => {
 					if (!item.hidden) {
 						return <Dropdown.Item key={item.id} eventKey={item.id}>{item.name}</Dropdown.Item>;
