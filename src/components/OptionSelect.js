@@ -3,6 +3,7 @@ import SearchContext from '../context/SearchContext';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
+import '../styles/OptionSelect.scss';
 
 /**
  * @description Functional component that renders select element and updates global context when value changes

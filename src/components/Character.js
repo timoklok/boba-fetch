@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Character.scss';
 
 /**
  * @description Renders the character details

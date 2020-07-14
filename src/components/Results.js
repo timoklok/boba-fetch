@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import SearchContext from '../context/SearchContext';
 import { getCharacters } from '../Api';
 import Character from './Character';
+import '../styles/Results.scss';
 
 
 /**
