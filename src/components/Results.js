@@ -26,13 +26,15 @@ const Results = () => {
 
 	return (
 
-		<div className='searchResults'>
+		<div className='search-results'>
 			<h2> Results</h2>
 
+			<div className='search-results__items'>
 				{characters.map( (char) => {
 					return <Character key={char.id} character={char} />
 				})
 				}
+			</div>
 		</div>
 	)
 	

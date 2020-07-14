@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import logo from './logo.svg';
 import './styles/App.scss';
 import { getFilms, getHomeworlds, getSpecies } from './Api';
 import OptionSelect from './components/OptionSelect';
@@ -38,18 +37,18 @@ function App() {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="app">
+      <header className="app-header">
         <h1>Boba Fetch</h1>
-
-        <SearchContextProvider value={ searchContextItems }>
+      </header>
+      <main className='app-main'>
+        <SearchContextProvider value={searchContextItems}>
           <OptionSelect listName='homeworld' list={planets} />
           <OptionSelect listName='species' list={species} />
           <OptionSelect listName='episodeId' list={films} />
           <Results />
         </SearchContextProvider>
-      </header>
+      </main>
     </div>
   );
 }
