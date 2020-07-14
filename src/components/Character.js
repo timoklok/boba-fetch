@@ -18,9 +18,18 @@ const Character = ({ character }) => {
 	return (
 		<div className='character'>
 			<h4 className='character__name'>{character.name}</h4>
-			<p><span className='character__detail'>Homeworld:</span> {character.homeworld.name}</p>
-			<p><span className='character__detail'>Species:</span> { renderSpecies() }</p>
-			<p><span className='character__detail'>Appears in:</span> { renderFilms() }</p >
+			<p className='character-detail'>
+				<span className='character-detail__name'>Homeworld</span>
+				<span className='character-detail__value'>{character.homeworld.name}</span>
+			</p>
+			<p className='character-detail'>
+				<span className='character-detail__name'>Species</span>
+				<span className='character-detail__value'>{renderSpecies()}</span>
+			</p>
+			<p className='character-detail'>
+				<span className='character-detail__name'>Appears in</span>
+				<span className='character-detail__value'>{renderFilms()}</span>
+			</p >
 		</div>
 	)
 } 

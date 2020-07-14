@@ -1,14 +1,32 @@
 .character {
-	border: 2px solid white;
-	border-radius: 2px;
-	padding: 1rem;
+	border: 1px solid white;
+	border-radius: 5px;
+	padding: 2rem 1rem;
 	background: rgba(255,255,255,0.1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .character__name {
+	font-size: 2rem;
 	font-weight: bold;
 }
 
-.character__detail {
+.character-detail {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin:0.5rem;
+}
+
+.character-detail__name {
+	display:block;
 	font-weight: 200;
+}
+
+.character-detail__value {
+	display:block;
+	font-weight: 700;
+	text-align:center;
 }
