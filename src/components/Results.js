@@ -27,7 +27,7 @@ const Results = () => {
 	return (
 
 		<div className='search-results'>
-			<h2> Results</h2>
+			<h2> Found {characters.length} possible target(s)</h2>
 
 			<div className='search-results__items'>
 				{characters.map( (char) => {
