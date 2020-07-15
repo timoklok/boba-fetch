@@ -1,14 +1,13 @@
 import axios from 'axios';
-
 import { runQuery, getFilms } from './Api';
 
 jest.mock('axios');
 
 describe('getFilms', () => {
-	it('fetches successfully data from an API', async () => {
-		const data = {
+	it('fetches successfully data from an API', done => {
+		const mockresult = {
 			data: {
-				hits: [
+				data: [
 					{
 						objectID: '1',
 						title: 'a',
@@ -26,8 +25,18 @@ describe('getFilms', () => {
 		    title
 		  }
 		}`;
-		axios.post.mockImplementationOnce(() => Promise.resolve(data));
-		await expect(getFilms(query)).resolves.toEqual(data);
+		axios.post.mockImplementationOnce(
+			() => Promise.resolve(mockresult)
+		);
+
+		getFilms().then((results) => {
+			expect(results).toBe(mockresult.data.data);
+			expect(axios.post).toHaveBeenCalledTimes(1);
+			//expect(axios.post).toHaveBeenCalledWith(
+			//	"https://swapi.graph.cool/"
+			//);
+			done();
+		});
 
 	});
 

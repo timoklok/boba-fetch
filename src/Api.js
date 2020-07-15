@@ -36,7 +36,7 @@ export const getCharacters = async function (searchParameters) {
 			}
 		}`;
 
-	return runQuery(query, searchParameters);
+	return await runQuery(query, searchParameters).then( (result) => result.data.data);
 
 }
 
@@ -52,8 +52,7 @@ export const getFilms = async function () {
 		    title
 		  }
 		}`
-	return runQuery(query);
-
+	return await runQuery(query).then((result) => result.data.data);
 }
 
 /**
@@ -69,21 +68,21 @@ export const getSpecies = async function () {
 		  }
 		}`;
 
-	return runQuery(query);
+	return await runQuery(query).then((result) => result.data.data);
 }
 
 /**
  * @description Function that retrieves all Star Wars Worlds
  * @returns Promise
  */
-export const getHomeworlds = () => {
+export const getHomeworlds = async () => {
 	const query = `query allPlanets {
 		  allPlanets{
 	    	name
 		    id
 		  }
 		}`;
-	return runQuery(query);
+	return await runQuery(query).then((result) => result.data.data);
 }
 
 

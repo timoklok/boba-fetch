@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('Correctly renders app', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/boba fetch/i);
-  expect(linkElement).toBeInTheDocument();
+  const titleElement = getByText(/boba fetch/i);
+  expect(titleElement).toBeInTheDocument();
 });

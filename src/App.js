@@ -15,15 +15,15 @@ function App() {
 
   useEffect(() => {
     getHomeworlds().then((results) => {
-      setPlanets(results.data.data.allPlanets);
+      setPlanets(results.allPlanets);
     })
 
     getFilms().then((results) => {
-      setFilms(results.data.data.allFilms);
+      setFilms(results.allFilms);
     })
 
     getSpecies().then((results) => {
-      setSpecies(results.data.data.allSpecies);
+      setSpecies(results.allSpecies);
     })
   }, []);
   
