@@ -1,12 +1,18 @@
 import React from 'react';
 import '../styles/Character.scss';
+import PropTypes from 'prop-types'
 
 /**
- * @description Renders the character details
- * @param object character
+ * Renders the character details
+ * @component 
+ * @param object character 
+ * return (
+ * 	<Character character={character} />
+ * )
  */
-const Character = ({ character }) => {
-	
+const Character = (props) => {
+	const { character } = props;
+
 	const renderFilms = () => {
 		return character.films.map((film, i) =>  film.title ).join(", ");
 	}
@@ -33,5 +39,9 @@ const Character = ({ character }) => {
 		</div>
 	)
 } 
+
+Character.propTypes = {
+	character: PropTypes.object.isRequired,
+};
 
 export default Character;

@@ -6,22 +6,27 @@ import '../styles/Results.scss';
 
 
 /**
- * @description Functional component that queries API based on context selection and displays results
+ * Functional component that queries API based on context selection and displays results
+ * @component
+ * return (
+ * 	<Results />
+ * )
  */
 const Results = () => {
 
-	const [searchContextItems, setSearchContextItems] = useContext(SearchContext);
 	const [characters, setCharacters] = useState([]);
 
+	// todo: move this, let results only render?
+	const [searchContextItems, setSearchContextItems] = useContext(SearchContext);
 	useEffect(() => {
 		getCharacters(searchContextItems.searchParameters).then((results) => {
-			setCharacters(results.data.data.allPersons);
+			setCharacters(results.allPersons);
 			setSearchResult(results);
 		})
 	}, [searchContextItems.searchParameters]);
 	
 	const setSearchResult = (results) => {
-		setSearchContextItems({ ...searchContextItems, searchResult: results.data.data.allPersons });
+		setSearchContextItems({ ...searchContextItems, searchResult: results.allPersons });
 	}
 
 	return (

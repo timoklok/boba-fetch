@@ -3,12 +3,22 @@ import SearchContext from '../context/SearchContext';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../styles/OptionSelect.scss';
+import PropTypes from 'prop-types'
 
 /**
  * @description Functional component that renders select element and updates global context when value changes
- * @param object props
- */
-const OptionSelect = ({ list, listName }) => {
+ * @component
+ * @param string listName 
+ * @param array list 
+ * return (
+ * 	<OptionSelect listName='name' list={list} />
+ * )
+ **/
+
+const OptionSelect = (props) => {
+
+	const { listName } = props;
+	let { list } = props;
 
 	// @Todo: this is too specific  
 	if (listName === 'episodeId') {
@@ -121,5 +131,10 @@ const OptionSelect = ({ list, listName }) => {
 	);
 
 }
+
+OptionSelect.propTypes = {
+	listName: PropTypes.string.isRequired,
+	list: PropTypes.array.isRequired,
+};
 
 export default OptionSelect;
