@@ -93,7 +93,9 @@ const OptionSelect = (props) => {
 
 	useEffect(() => {
 		const currentResult = searchContextItems.searchResult;
-		updateOptions(currentResult);
+		if (currentResult) {
+			updateOptions(currentResult);
+		}
 	}, [searchContextItems.searchResult]);
 
 	const renderDropdown = () => {
