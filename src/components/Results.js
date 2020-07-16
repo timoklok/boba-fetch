@@ -12,6 +12,7 @@ import '../styles/Results.scss';
  */
 const Results = ( props ) => {
 	const { characters } = props;
+	
 	const [isLoading, setLoading] = useState(true);
 
 	// clear loading state when list options are loaded
