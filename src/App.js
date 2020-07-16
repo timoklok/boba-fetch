@@ -1,18 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import './styles/App.scss';
-import { getFilms, getHomeworlds, getSpecies } from './Api';
+import { getFilms, getHomeworlds, getSpecies, getCharacters } from './Api';
 import OptionSelect from './components/OptionSelect';
 import Results from './components/Results';
-import { SearchContextProvider } from './context/SearchContext';
 
 function App() {
-
 
   // get all static list from api tot populate selection dropdowns
   const [planets, setPlanets] = useState([]);
   const [species, setSpecies] = useState([]);
   const [films, setFilms] = useState([]);
+  const [results, setResults] = useState([]);
 
+  const [searchParameters, setSearchParameters] = useState({
+      episodeId: undefined,
+      homeworld: undefined,
+      species: undefined
+    });
+  
+
+  // get all lists on mount
   useEffect(() => {
     getHomeworlds().then((results) => {
       setPlanets(results.allPlanets);
@@ -25,16 +32,25 @@ function App() {
     getSpecies().then((results) => {
       setSpecies(results.allSpecies);
     })
+
+    getCharacters(searchParameters).then((results) => {
+      setResults(results.allPersons);
+    });
+
   }, []);
   
-  const searchContextItems = useState({
-    searchParameters: {
-      episodeId: undefined,
-      homeworld: undefined,
-      species: undefined
-    }
-  });
 
+  // set search parameters when option is selected
+  const updateSearchParameters = (listName, value) => {
+    setSearchParameters({ ...searchParameters, [listName]: (listName === 'episodeId') ? parseInt(value) : value });
+  };
+
+  // get new results when search parameters have changed
+  useEffect(() => {
+    getCharacters(searchParameters).then((results) => {
+      setResults(results.allPersons);
+    });
+  }, [searchParameters]);
 
   return (
     <div className="app">
@@ -45,14 +61,12 @@ function App() {
         </p>
       </header>
       <main className='app-main'>
-        <SearchContextProvider value={searchContextItems}>
           <div className='filter-options'>		
-            <OptionSelect listName='homeworld' list={planets} />
-            <OptionSelect listName='species' list={species} />
-            <OptionSelect listName='episodeId' list={films} />
+            <OptionSelect listName='homeworld' list={planets} update={updateSearchParameters} currentResult={results} />
+            <OptionSelect listName='species' list={species} update={updateSearchParameters} currentResult={results} />
+            <OptionSelect listName='episodeId' list={films} update={updateSearchParameters} currentResult={results} />
           </div>
-          <Results />
-        </SearchContextProvider>
+          <Results characters={results}/>
       </main>
     </div>
   );

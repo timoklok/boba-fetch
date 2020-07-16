@@ -1,6 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
-import SearchContext from '../context/SearchContext';
-import { getCharacters } from '../Api';
+import React, { useEffect, useState} from 'react';
 import Character from './Character';
 import '../styles/Results.scss';
 
@@ -12,22 +10,16 @@ import '../styles/Results.scss';
  * 	<Results />
  * )
  */
-const Results = () => {
+const Results = ( props ) => {
+	const { characters } = props;
+	const [isLoading, setLoading] = useState(true);
 
-	const [characters, setCharacters] = useState([]);
-
-	// todo: move this, let results only render?
-	const [searchContextItems, setSearchContextItems] = useContext(SearchContext);
+	// clear loading state when list options are loaded
 	useEffect(() => {
-		getCharacters(searchContextItems.searchParameters).then((results) => {
-			setCharacters(results.allPersons);
-			setSearchResult(results);
-		})
-	}, [searchContextItems.searchParameters]);
-	
-	const setSearchResult = (results) => {
-		setSearchContextItems({ ...searchContextItems, searchResult: results.allPersons });
-	}
+		if (isLoading && characters.length) {
+			setLoading(false);
+		}
+	}, [characters, isLoading]);
 
 	return (
 

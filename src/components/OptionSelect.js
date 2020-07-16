@@ -1,5 +1,4 @@
-import React , { useContext, useEffect, useState } from "react";
-import SearchContext from '../context/SearchContext';
+import React , { useEffect, useState } from "react";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../styles/OptionSelect.scss';
@@ -17,47 +16,44 @@ import PropTypes from 'prop-types'
 
 const OptionSelect = (props) => {
 
-	const { listName } = props;
+	const { listName, update, currentResult } = props;
 	let { list } = props;
 
-	// @Todo: this is too specific  
+	// @Todo: this is too specific
 	if (listName === 'episodeId') {
 		list = list.map((item) => {
 			return { ...item, 'id': parseInt(item.episodeId), 'name': item.title }
 		});
 	}
 	
-	const [searchContextItems, setSearchContextItems] = useContext(SearchContext);
-	const [options, setOptions] = useState(list);
 	const [currentSelection, setCurrentSlection] = useState("");
 	const [isLoading, setLoading] = useState(true);
 
+	// clear loading state when list options are loaded
 	useEffect(() => {
 		if (isLoading && list.length) {
 			setLoading(false);
 		}
 	}, [list]);
 
+	
 	const clearSelection = () => {
 		setCurrentSlection(undefined);
-		const searchParameters = { ...searchContextItems['searchParameters'], [listName]: undefined };
-		setSearchContextItems({ ...searchContextItems, searchParameters: searchParameters });
+		update(listName, undefined);
 	};
 
-	// set searchparameters in context object on selecting a option
 	const handleChange = (value) => {
 		if (!value) value = undefined;
 		
 		// without truthy check we have to parse the episodeId to Int
 		const currentSelectionObject = list.filter((item) =>  (item.id == value));
 		setCurrentSlection(currentSelectionObject[0]['name'] );
-
-		const searchParameters = { ...searchContextItems['searchParameters'], [listName]: (listName === 'episodeId') ? parseInt(value) : value };
-		setSearchContextItems({ ...searchContextItems, searchParameters: searchParameters});
+		update(listName, value);
 	}
 
-	const updateOptions = (currentResult) => {
-		const updatedList = list.map((item) => {
+	const renderOptions = () => {
+
+		return list.map((item) => {
 			let hidden = true;
 
 			// only show an option if it is present in the current search result
@@ -84,19 +80,12 @@ const OptionSelect = (props) => {
 				}
 
 			}
-
-			return { ...item, 'hidden': hidden };
+			if (!hidden) {
+				return <Dropdown.Item key={item.id} eventKey={item.id}>{item.name}</Dropdown.Item>;
+			}
+			return undefined;
 		});
-
-		setOptions(updatedList);
-	}
-
-	useEffect(() => {
-		const currentResult = searchContextItems.searchResult;
-		if (currentResult) {
-			updateOptions(currentResult);
-		}
-	}, [searchContextItems.searchResult]);
+	};
 
 	const renderDropdown = () => {
 		if (currentSelection) {
@@ -104,12 +93,7 @@ const OptionSelect = (props) => {
 		}
 		return (
 			<DropdownButton variant="outline-warning" id="dropdown-basic-button" title={(isLoading) ? 'loading...' : 'select '+ listName } onSelect={handleChange}>
-				{options.map((item) => {
-					if (!item.hidden) {
-						return <Dropdown.Item key={item.id} eventKey={item.id}>{item.name}</Dropdown.Item>;
-					}
-					return undefined;
-				})}
+				{renderOptions()}
 			</DropdownButton> 
 		)
 	}
