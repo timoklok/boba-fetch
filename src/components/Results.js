@@ -1,18 +1,19 @@
 import React, { useEffect, useState} from 'react';
 import Character from './Character';
 import '../styles/Results.scss';
+import PropTypes from 'prop-types'
 
 
 /**
  * Functional component that queries API based on context selection and displays results
  * @component
  * return (
- * 	<Results />
+ * 	<Results characters={[]}/>
  * )
  */
 const Results = ( props ) => {
 	const { characters } = props;
-	
+
 	const [isLoading, setLoading] = useState(true);
 
 	// clear loading state when list options are loaded
@@ -37,5 +38,10 @@ const Results = ( props ) => {
 	)
 	
 }
+
+Results.propTypes = {
+	characters: PropTypes.array.isRequired,
+};
+
 
 export default Results;

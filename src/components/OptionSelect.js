@@ -9,8 +9,10 @@ import PropTypes from 'prop-types'
  * @component
  * @param string listName 
  * @param array list 
+ * @param array currentResult 
+ * @param function update 
  * return (
- * 	<OptionSelect listName='name' list={list} />
+ * 	<OptionSelect listName='name' list={[]} currentResult={[]} function={}/>
  * )
  **/
 
@@ -121,6 +123,8 @@ const OptionSelect = (props) => {
 OptionSelect.propTypes = {
 	listName: PropTypes.string.isRequired,
 	list: PropTypes.array.isRequired,
+	currentResult: PropTypes.array.isRequired,
+	update: PropTypes.func,
 };
 
 export default OptionSelect;
