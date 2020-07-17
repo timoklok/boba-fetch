@@ -1,3 +1,7 @@
+## Boba Fetch
+
+Boba Fetch is a small tool to filter Star Wars characters based on Homeworld, Species or which of the films they appeard in. It use https://swapi.graph.cool/ for it's data. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
