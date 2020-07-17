@@ -65,9 +65,9 @@ function App() {
       </header>
       <main className='app-main'>
           <div className='filter-options'>		
-            <OptionSelect listName='homeworld' list={planets} update={updateSearchParameters} currentResult={results} />
-            <OptionSelect listName='species' list={species} update={updateSearchParameters} currentResult={results} />
-            <OptionSelect listName='episodeId' list={films} update={updateSearchParameters} currentResult={results} />
+          <OptionSelect listName='homeworld' listDisplayName='homeworld' list={planets} update={updateSearchParameters} currentResult={results} />
+          <OptionSelect listName='species' listDisplayName='species'list={species} update={updateSearchParameters} currentResult={results} />
+          <OptionSelect listName='episodeId' listDisplayName='episode' list={films} update={updateSearchParameters} currentResult={results} />
           </div>
           <Results characters={results}/>
       </main>

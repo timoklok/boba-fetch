@@ -18,7 +18,7 @@ import PropTypes from 'prop-types'
 
 const OptionSelect = (props) => {
 
-	const { listName, update, currentResult } = props;
+	const { listName, listDisplayName, update, currentResult } = props;
 	let { list } = props;
 
 	// @Todo: this is too specific
@@ -94,7 +94,7 @@ const OptionSelect = (props) => {
 			return false;
 		}
 		return (
-			<DropdownButton variant="outline-light" id="dropdown-basic-button" title={(isLoading) ? 'loading...' : 'select '+ listName } onSelect={handleChange}>
+			<DropdownButton variant="outline-light" id="dropdown-basic-button" title={(isLoading) ? 'loading...' : 'select '+ listDisplayName } onSelect={handleChange}>
 				{renderOptions()}
 			</DropdownButton> 
 		)
@@ -106,7 +106,7 @@ const OptionSelect = (props) => {
 		}
 		return (
 			<>
-				<span className='filter-option__selected'>{listName}: {currentSelection}</span>
+				<span className='filter-option__selected'>{listDisplayName}: {currentSelection}</span>
 				<button name='clear selection' className='filter-option__clear' onClick={clearSelection}></button>	
 			</>
 		);
