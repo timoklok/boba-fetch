@@ -2,13 +2,10 @@ import axios from "axios";
 
 const API_URL = 'https://swapi.graph.cool/';
 
-// @todo: add error handling
-// @todo: add tests
-
 /**
  * @description Function that retrieves characters that matches all three params provided
  * @param object searchParameters
- * @returns Promise
+ * @returns await
  */
 export const getCharacters = async function (searchParameters) {
 	const query = `query findCharacters ($homeworld: ID, $species: ID, $episodeId: Int) {
@@ -36,7 +33,11 @@ export const getCharacters = async function (searchParameters) {
 			}
 		}`;
 
-	return await runQuery(query, searchParameters).then( (result) => result.data.data);
+	return await runQuery(query, searchParameters).then(
+		(result) => result.data.data,
+		(error) => {
+			throw new Error("couldn't get Charcater list")
+		});
 
 }
 
@@ -52,12 +53,17 @@ export const getFilms = async function () {
 		    title
 		  }
 		}`
-	return await runQuery(query).then((result) => result.data.data);
+	return await runQuery(query).then(
+		(result) => result.data.data,
+		(error) => {
+			throw new Error("couldn't get Film list")
+		}
+	);
 }
 
 /**
  * @description Function that retrieves all Star Wars Species
- * @returns Promise
+ * @returns await
  */
 export const getSpecies = async function () {
 	const query =
@@ -68,12 +74,17 @@ export const getSpecies = async function () {
 		  }
 		}`;
 
-	return await runQuery(query).then((result) => result.data.data);
+	return await runQuery(query).then(
+		(result) => result.data.data,
+		(error) => {
+			throw new Error("couldn't get Species list")
+		}
+	);
 }
 
 /**
  * @description Function that retrieves all Star Wars Worlds
- * @returns Promise
+ * @returns await
  */
 export const getHomeworlds = async () => {
 	const query = `query allPlanets {
@@ -82,7 +93,10 @@ export const getHomeworlds = async () => {
 		    id
 		  }
 		}`;
-	return await runQuery(query).then((result) => result.data.data);
+	return await runQuery(query).then(
+		(result) => result.data.data,
+		(error) => { throw new Error("couldn't get Planet list") }
+	);
 }
 
 
@@ -90,11 +104,11 @@ export const getHomeworlds = async () => {
  * @description Calls the Star Wars GraphQL
  * @param {object} query 
  * @param {object} variables
- * @returns Promise
+ * @returns await
  */
 export const runQuery = async (query, variables = {}) => {
 
-	if (!query) { throw new Error('Network Error'); }
+	if (!query) { throw new Error('No query Error'); }
 	
 	return await axios.post(API_URL, {
 		query: query,

@@ -20,13 +20,6 @@ const OptionSelect = (props) => {
 
 	const { listName, listDisplayName, update, currentResult } = props;
 	let { list } = props;
-
-	// @Todo: this is too specific
-	if (listName === 'episodeId') {
-		list = list.map((item) => {
-			return { ...item, 'id': parseInt(item.episodeId), 'name': item.title }
-		});
-	}
 	
 	const [currentSelection, setCurrentSlection] = useState("");
 	const [isLoading, setLoading] = useState(true);
@@ -36,7 +29,7 @@ const OptionSelect = (props) => {
 		if (isLoading && list.length) {
 			setLoading(false);
 		}
-	}, [list]);
+	}, [list, isLoading]);
 
 	
 	const clearSelection = () => {

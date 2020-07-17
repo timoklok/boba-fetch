@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { runQuery, getFilms } from '../Api';
+import { runQuery, getFilms } from '../components/Api';
 
 jest.mock('axios');
 

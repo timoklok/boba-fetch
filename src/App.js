@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import './styles/App.scss';
-import { getFilms, getHomeworlds, getSpecies, getCharacters } from './Api';
+import { getFilms, getHomeworlds, getSpecies, getCharacters } from './components/Api';
 import OptionSelect from './components/OptionSelect';
 import Results from './components/Results';
 
+
 function App() {
 
-  // get all static list from api tot populate selection dropdowns
   const [planets, setPlanets] = useState([]);
   const [species, setSpecies] = useState([]);
   const [films, setFilms] = useState([]);
@@ -19,30 +19,53 @@ function App() {
     });
   
 
-  // get all lists on mount
+  // get all static list from api tot populate selection dropdowns on mount
   useEffect(() => {
     getHomeworlds().then((results) => {
-      setPlanets(results.allPlanets);
-    })
+      if (results && results.allPlanets) {
+        setPlanets(results.allPlanets);
+      } else {
+        throw new Error("no results for Planets");
+      }
+    });
 
     getFilms().then((results) => {
-      setFilms(results.allFilms);
-    })
+      if (results && results.allFilms) {
+        // episodeId doesnt use 'id' and 'name', but 'episodeId' and 'title', remap them for clarity 
+        results.allFilms = results.allFilms.map((item) => {
+          return { ...item, 'id': parseInt(item.episodeId), 'name': item.title }
+        });
+
+        setFilms(results.allFilms);
+      } else {
+        throw new Error("no results for Films");
+      }
+
+    });
 
     getSpecies().then((results) => {
-      setSpecies(results.allSpecies);
-    })
+      if (results && results.allSpecies) {
+        setSpecies(results.allSpecies);
+      } else {
+        throw new Error("no results for Species");
+      }
+    });
 
+    // start with a complete character list
     getCharacters(searchParameters).then((results) => {
-      setResults(results.allPersons);
+      if (results && results.allPersons) {
+        setResults(results.allPersons);
+      } else {
+        throw new Error("no results for Persons");
+      }
     });
 
   }, []);
   
 
-  // set search parameters when option is selected
+  // set search parameters when dropdown option is selected
   const updateSearchParameters = (listName, value) => {
-    if (listName == 'episodeId') {
+    if (listName === 'episodeId') {
       value = (value) ? parseInt(value) : undefined;
     }
     setSearchParameters({ ...searchParameters, [listName]: value });
@@ -57,12 +80,14 @@ function App() {
 
   return (
     <div className="app">
+
       <header className="app-header">
         <h1 className='title'>Boba Fetch</h1>
         <p className='description'>
           A Star Wars character locator
         </p>
       </header>
+
       <main className='app-main'>
           <div className='filter-options'>		
           <OptionSelect listName='homeworld' listDisplayName='homeworld' list={planets} update={updateSearchParameters} currentResult={results} />
