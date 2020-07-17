@@ -42,7 +42,10 @@ function App() {
 
   // set search parameters when option is selected
   const updateSearchParameters = (listName, value) => {
-    setSearchParameters({ ...searchParameters, [listName]: (listName === 'episodeId') ? parseInt(value) : value });
+    if (listName == 'episodeId') {
+      value = (value) ? parseInt(value) : undefined;
+    }
+    setSearchParameters({ ...searchParameters, [listName]: value });
   };
 
   // get new results when search parameters have changed
