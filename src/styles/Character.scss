@@ -1,11 +1,14 @@
+
 .character {
-	border: 1px solid white;
-	border-radius: 5px;
+	border: 2px solid var(--main-border-color);
 	padding: 2rem 1rem;
-	background: rgba(255,255,255,0.1);
+	background: var(--main-background-color);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	box-shadow: 0px 0px 5px var(--main-shadow-color);
+	text-align:center;
+
 }
 
 .character__name {
@@ -23,10 +26,10 @@
 .character-detail__name {
 	display:block;
 	font-weight: 200;
+	opacity: 0.7;
 }
 
 .character-detail__value {
 	display:block;
 	font-weight: 700;
-	text-align:center;
 }

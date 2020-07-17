@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import Character from './Character';
 import '../styles/Results.scss';
+import '../styles/Loader.scss';
 import PropTypes from 'prop-types'
 
 
@@ -16,23 +17,38 @@ const Results = ( props ) => {
 
 	const [isLoading, setLoading] = useState(true);
 
-	// clear loading state when list options are loaded
+	//clear loading state when initial results are loaded
 	useEffect(() => {
 		if (isLoading && characters.length) {
 			setLoading(false);
 		}
 	}, [characters, isLoading]);
 
+	
+	const renderCharacters = () => {
+		if (!isLoading) {
+			return characters.map((char) => {
+				return <Character key={char.id} character={char} />
+			})
+		}
+		return false;
+	}
+	 
+	const renderLoader = () => {
+		if (isLoading) {
+			return <div className="loader"><div></div><div></div></div>
+		}
+		return false;
+	}
+
 	return (
 
 		<div className='search-results'>
-			<h2> Found {characters.length} possible target(s)</h2>
+			<h2 className='search-results__count'> Found {characters.length} possible target(s)</h2>
 
 			<div className='search-results__items'>
-				{characters.map( (char) => {
-					return <Character key={char.id} character={char} />
-				})
-				}
+				{renderCharacters()}
+				{renderLoader()}
 			</div>
 		</div>
 	)

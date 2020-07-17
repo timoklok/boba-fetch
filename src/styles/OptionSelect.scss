@@ -2,4 +2,22 @@
 	flex: 1 1 200px;
 	margin: 1rem;
 	text-align:center;
+	height: 50px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+
+	.dropdown-menu {
+		border-radius: 0;
+	}
+}
+
+
+.filter-option__clear {
+	background-color: red;
+	width:20px;
+	height:20px;
+	border-radius: 50%;
+	box-shadow: 0px 0px 10px red; 
+	margin:20px;
 }

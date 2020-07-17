@@ -94,7 +94,7 @@ const OptionSelect = (props) => {
 			return false;
 		}
 		return (
-			<DropdownButton variant="outline-warning" id="dropdown-basic-button" title={(isLoading) ? 'loading...' : 'select '+ listName } onSelect={handleChange}>
+			<DropdownButton variant="outline-light" id="dropdown-basic-button" title={(isLoading) ? 'loading...' : 'select '+ listName } onSelect={handleChange}>
 				{renderOptions()}
 			</DropdownButton> 
 		)
@@ -105,9 +105,10 @@ const OptionSelect = (props) => {
 			return false;
 		}
 		return (
-			<p>{currentSelection}
-				<button className='filter-option__clear' onClick={clearSelection}>x</button>
-			</p>
+			<>
+				<span className='filter-option__selected'>{listName}: {currentSelection}</span>
+				<button name='clear selection' className='filter-option__clear' onClick={clearSelection}></button>	
+			</>
 		);
 	}
 

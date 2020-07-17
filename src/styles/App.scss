@@ -7,11 +7,18 @@
 
 }
 
+:root{
+  --main-border-color: rgb(104, 125, 152);
+  --main-background-color: rgba(104, 125, 152, 0.2);
+  --main-shadown-color: rgba(104, 125, 152, 0.4);
+}
+
 .app {
   margin: 0 auto;
   width: #{'min(100%, 1200px)'};
   padding: 4rem 2rem;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-family: 'Share Tech Mono', monospace, Roboto, Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
 }
 
 .app-header {
@@ -42,4 +49,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+	border: 2px solid var(--main-border-color);
+  background: var(--main-background-color);
+
 }
